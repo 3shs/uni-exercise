@@ -1,0 +1,26 @@
+.bg-white {
+	background-color: #ffffff;
+	color: #666666;
+}
+.cu-bar.fixed,
+.nav.fixed {
+	position: fixed;
+	width: 100%;
+	top: 0;
+	z-index: 1024;
+}
+.text-center {
+	text-align: center;
+}
+.nav .cu-item {
+	height: 90rpx;
+	display: inline-block;
+	line-height: 90rpx;
+	margin: 0 10rpx;
+	padding: 0 20rpx;
+}
+.nav .cu-item.cur {
+  font-size: 36rpx;
+  color: #000;
+	border-bottom: 4rpx solid;
+}
