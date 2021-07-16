@@ -1,3 +1,42 @@
+view,
+scroll-view,
+swiper,
+swiper-item,
+cover-view,
+cover-image,
+icon,
+text,
+rich-text,
+progress,
+button,
+checkbox,
+form,
+input,
+label,
+radio,
+slider,
+switch,
+textarea,
+navigator,
+audio,
+camera,
+image,
+video {
+  box-sizing: border-box;
+}
+
+.text-gray {
+  color: $text-color-gray;
+}
+.font-size-sm {
+  font-size: $font-size-sm;
+}
+.mr-sm {
+  margin-right: $spacing-row-sm;
+}
+.ml-sm {
+  margin-left: $spacing-row-sm;
+}
 .bg-white {
 	background-color: #ffffff;
 	color: #666666;
@@ -23,4 +62,13 @@
   font-size: 36rpx;
   color: #000;
 	border-bottom: 4rpx solid;
+}
+.flex {
+  display: flex;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.align-center {
+  align-items: center;
 }

@@ -14,7 +14,12 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 	/*每个页面公共css */
+  @import "style/icon.scss";
   @import "style/main.scss";
+  
+  .container {
+    background: $page-color-base;
+  }
 </style>

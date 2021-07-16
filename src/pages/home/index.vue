@@ -1,5 +1,5 @@
 <template>
-  <view class="home-container">
+  <view class="container">
     <view class="bg-white fixed nav text-center" style="font-size: 32rpx;" :style="[{height:$customBar + 'px'}]">
       <view class="cu-item" :class="isRecommend?'cur':''" @tap="showRecommend"
             :style="{height:$customBar + 'px',lineHeight:($customBar+20)+'px'}">
@@ -11,7 +11,7 @@
       </view>
     </view>
     <view v-if="isRecommend" :style="[{marginTop: $customBar+'px'}]">
-      1111
+      <RecommendList />
     </view>
     <view v-if="isShopping" :style="[{marginTop: $customBar+'px'}]">
       2222
@@ -19,7 +19,11 @@
   </view>
 </template>
 <script>
+import RecommendList from './components/RecommendList'
 export default {
+  components: {
+    RecommendList
+  },
   data() {
     return {
       isRecommend: true,
