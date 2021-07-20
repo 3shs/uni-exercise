@@ -1,5 +1,7 @@
-import system from "./system/inex"
+import system from "./system/index"
+import home from "./home/index"
 const api = {
-  system
+  system,
+  home
 }
 export default api

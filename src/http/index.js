@@ -31,7 +31,7 @@ fly.interceptors.request.use(request => {
 })
 
 fly.interceptors.response.use((response, promise) => {
-  if (response.data.code === 200) {
+  if (response.data.responseCode === 200) {
     return promise.resolve(response.data)
   }
 })

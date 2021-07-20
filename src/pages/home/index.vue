@@ -11,7 +11,14 @@
       </view>
     </view>
     <view v-if="isRecommend" :style="[{marginTop: $customBar+'px'}]">
-      <RecommendList />
+      <Refresh
+        @onRefresh="onRecommendRefresh">
+        <RecommendList
+          v-for="item in recommenList"
+          :key="item.collocationId"
+          :detail="item"
+        />
+      </Refresh>
     </view>
     <view v-if="isShopping" :style="[{marginTop: $customBar+'px'}]">
       2222
@@ -20,18 +27,23 @@
 </template>
 <script>
 import RecommendList from './components/RecommendList'
+import Refresh from '@/components/refresh'
 export default {
   components: {
-    RecommendList
+    RecommendList,
+    Refresh
   },
   data() {
     return {
       isRecommend: true,
       isShopping: false,
       $customBar: this.$customBar,
+      page: 0,
+      recommenList: []
     }
   },
   onLoad() {
+    this.getRecommendList()
   },
   methods: {
     showRecommend() {
@@ -42,6 +54,23 @@ export default {
       this.isRecommend = false
       this.isShopping = true
     },
+    onRecommendRefresh() {
+      this.page = 0
+      this.getRecommendList('refresh')
+    },
+    getRecommendList(type) {
+      const self = this
+      self.$api.home.getRecommendList(this.page++).then(res => {
+        if (res.responseCode === 200) {
+          const list = res.data.content || []
+          if (type === 'refresh') {
+            this.recommenList = list
+          } else {
+            this.recommenList = this.recommenList.concat(list)
+          }
+        }
+      })
+    }
   }
 }
 </script>

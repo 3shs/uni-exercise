@@ -15,12 +15,14 @@
 /* 颜色变量 */
 /*  页面容器相关颜色 */
 $page-color-base: #f8f8f8;
+$padding-sm: 20rpx;
 
 /* 行为相关颜色 */
 $uni-color-primary: #007aff;
 $uni-color-success: #4cd964;
 $uni-color-warning: #f0ad4e;
 $uni-color-error: #dd524d;
+$color-like: red;
 
 /* 文字基本颜色 */
 $uni-text-color:#333;//基本色
@@ -53,19 +55,20 @@ $uni-img-size-lg:80rpx;
 
 /* Border Radius */
 $uni-border-radius-sm: 4rpx;
-$uni-border-radius-base: 6rpx;
+$border-radius-base: 6rpx;
 $uni-border-radius-lg: 12rpx;
 $uni-border-radius-circle: 50%;
 
 /* 水平间距 */
 $spacing-row-sm: 10rpx;
 $uni-spacing-row-base: 20rpx;
-$uni-spacing-row-lg: 30rpx;
+$spacing-row-lg: 30rpx;
 
 /* 垂直间距 */
 $uni-spacing-col-sm: 8rpx;
 $uni-spacing-col-base: 16rpx;
 $uni-spacing-col-lg: 24rpx;
+$spacing-col-lger: 30rpx;
 
 /* 透明度 */
 $uni-opacity-disabled: 0.3; // 组件禁用态的透明度
