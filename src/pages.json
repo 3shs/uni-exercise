@@ -19,14 +19,8 @@
   ],
   "globalStyle": {
       "navigationBarTextStyle": "black",
-      "navigationBarBackgroundColor": "#F8F8F8",
+      "navigationBarBackgroundColor": "#FFFFFF",
       "backgroundColor": "#F8F8F8",
-      
-      "renderingMode": "seperated", // 仅微信小程序，webrtc 无法正常时尝试强制关闭同层渲染
-      "pageOrientation": "portrait", //横屏配置，全局屏幕旋转设置(仅 APP/微信/QQ小程序)，支持 auto / portrait / landscape
-      "rpxCalcMaxDeviceWidth": 960,
-      "rpxCalcBaseDeviceWidth": 375,
-      "rpxCalcIncludeWidth": 750,
       "navigationStyle": "custom"
   },
   "tabBar": {
@@ -54,14 +48,6 @@
           "iconPath": "static/tabs/my.png",
           "selectedIconPath": "static/tabs/my_cur.png"
         }
-      ],
-      "midButton": {
-          "width": "80px",
-          "height": "50px",
-          "text": "文字",
-          "iconPath": "static/image/midButton_iconPath.png",
-          "iconWidth": "24px",
-          "backgroundImage": "static/image/midButton_backgroundImage.png"
-      }
+      ]
   }
 }

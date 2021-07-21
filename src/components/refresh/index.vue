@@ -28,7 +28,7 @@
               <view class="up-text">{{dropDownInfo.upText}}</view>
             </view>
             <view class="refresh-tip" v-if="dropDownState === 3">
-              <image 
+              <image
                 v-if="dropDownInfo.refreshImg" 
                 class="refresh-img" 
                 :src="dropDownInfo.refreshImg" 
@@ -52,7 +52,7 @@
 				default: 'more'
 			}
 		},
-		data () {
+		data() {
 			return {
 			  defaultOffset: 40, // 下拉偏移高度, 如果要改建议相应的修改.releshMoudle的margin-top和.down-tip, .up-tip, .refresh-tip的height
 			  top: 0,
@@ -79,6 +79,7 @@
 		},
 		methods: {
       scrolltolower() {
+        console.log('111')
         this.$emit('scrolltolower')
       },
       scroll(e) {
@@ -209,7 +210,7 @@
 			width: 100%;
 			color: #999;
 			transition-duration: 200ms;
-			font-size: 28upx;
+			font-size: 28rpx;
 			.down-tip,
 			.up-tip,
 			.refresh-tip {
@@ -221,9 +222,9 @@
 			.down-img,
 			.up-img,
 			.refresh-img{
-				width: 50upx;
-				height: 50upx;
-				margin-right: 30upx;
+				width: 50rpx;
+				height: 50rpx;
+				margin-right: 30rpx;
 			}
 			.down-img {
 			  transform: rotate(0deg);
@@ -265,7 +266,7 @@
 	.uni-load-more {
 		display: flex;
 		flex-direction: row;
-		height: 80upx;
+		height: 80rpx;
 		align-items: center;
 		justify-content: center
 	}

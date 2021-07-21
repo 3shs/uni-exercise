@@ -10,7 +10,7 @@
         逛街
       </view>
     </view>
-    <view v-if="isRecommend" :style="[{marginTop: $customBar+'px'}]">
+    <view v-if="isRecommend" :style="[{paddingTop: $customBar+'px'}]">
       <Refresh
         @onRefresh="onRecommendRefresh">
         <RecommendList
@@ -20,7 +20,7 @@
         />
       </Refresh>
     </view>
-    <view v-if="isShopping" :style="[{marginTop: $customBar+'px'}]">
+    <view v-if="isShopping" :style="[{paddingTop: $customBar+'px'}]">
       2222
     </view>
   </view>
@@ -44,6 +44,11 @@ export default {
   },
   onLoad() {
     this.getRecommendList()
+  },
+  onReachBottom() {
+    if (this.isRecommend) {
+      // this.getRecommendList()
+    }
   },
   methods: {
     showRecommend() {

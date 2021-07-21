@@ -5,7 +5,7 @@ export default {
   intTitleNav() {
     uni.getSystemInfo({
       success: e => {
-        console.log('eeee',e)
+        // console.log('eeee',e)
         // #ifndef MP
         Vue.prototype.$statusBar = e.statusBarHeight
         if (e.platform === 'android') {
@@ -17,6 +17,7 @@ export default {
         // #ifdef MP-WEIXIN
         Vue.prototype.$statusBar = e.statusBarHeight
         let custom = wx.getMenuButtonBoundingClientRect()
+        // console.log('custome', custom)
         Vue.prototype.$custom = custom
         Vue.prototype.$customBar = custom.bottom + custom.top - e.statusBarHeight
         // #endif
