@@ -21,17 +21,23 @@
       </Refresh>
     </view>
     <view v-if="isShopping" :style="[{paddingTop: $customBar+'px'}]">
-      2222
+      <Refresh>
+        <ShoppingList 
+          :data="recommenList1"
+        />
+      </Refresh>
     </view>
   </view>
 </template>
 <script>
 import RecommendList from './components/RecommendList'
+import ShoppingList from './components/ShoppingList'
 import Refresh from '@/components/refresh'
 export default {
   components: {
     RecommendList,
-    Refresh
+    Refresh,
+    ShoppingList
   },
   data() {
     return {
@@ -39,15 +45,18 @@ export default {
       isShopping: false,
       $customBar: this.$customBar,
       page: 0,
-      recommenList: []
+      page1: 0,
+      recommenList: [],
+      recommenList1: []
     }
   },
   onLoad() {
     this.getRecommendList()
+    this.getShoppingList()
   },
   onReachBottom() {
     if (this.isRecommend) {
-      // this.getRecommendList()
+      this.getRecommendList()
     }
   },
   methods: {
@@ -73,6 +82,15 @@ export default {
           } else {
             this.recommenList = this.recommenList.concat(list)
           }
+        }
+      })
+    },
+    getShoppingList() {
+      const self = this
+      self.$api.home.getShoppingList(this.page1++).then(res => {
+        if (res.responseCode === 200) {
+          const list = res.data.content || []
+          this.recommenList1 = list
         }
       })
     }

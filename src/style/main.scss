@@ -46,6 +46,9 @@ video {
 .pt-lg {
   padding-top: $spacing-col-lger;
 }
+.mt-xs {
+  margin-top: $spacing-col-xs;
+}
 .padding-sm {
   padding: $padding-sm;
 }
@@ -92,6 +95,12 @@ video {
 }
 .align-center {
   align-items: center;
+}
+.wrap {
+  flex-wrap: wrap;
+}
+.justify-around {
+  justify-content: space-around;
 }
 /* ==================
           徽章
@@ -157,4 +166,9 @@ video {
 .line-grey,
 .lines-grey {
 	color: #8799a3;
+}
+.text-black,
+.line-black,
+.lines-black {
+	color: #333333;
 }
