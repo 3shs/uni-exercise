@@ -4,8 +4,8 @@ const home = {
   getRecommendList(page) {
     return fly.get('/mi/collocation/load_recommend', {page})
   },
-  getShoppingList(page) {
-    return fly.get('/mi/collocation/list', {page})
+  getShoppingList(page,sex) {
+    return fly.get('/mi/collocation/list', {page, sex})
   }
 }
 export default home

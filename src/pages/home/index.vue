@@ -21,11 +21,19 @@
       </Refresh>
     </view>
     <view v-if="isShopping" :style="[{paddingTop: $customBar+'px'}]">
-      <Refresh>
+      <Refresh
+        @onRefresh="onShoppingRefresh">
         <ShoppingList 
-          :data="recommenList1"
+          :data="shoppingList"
         />
       </Refresh>
+      <uni-fab
+        :pattern="pattern"
+        horizontal="right"
+        direction="vertical"
+        :content="content"
+        @trigger="clickSex"
+        @fabClick="clearSex"></uni-fab>
     </view>
   </view>
 </template>
@@ -33,11 +41,13 @@
 import RecommendList from './components/RecommendList'
 import ShoppingList from './components/ShoppingList'
 import Refresh from '@/components/refresh'
+import { uniFab } from '@dcloudio/uni-ui'
 export default {
   components: {
     RecommendList,
     Refresh,
-    ShoppingList
+    ShoppingList,
+    uniFab
   },
   data() {
     return {
@@ -47,7 +57,21 @@ export default {
       page: 0,
       page1: 0,
       recommenList: [],
-      recommenList1: []
+      shoppingList: [],
+      pattern: {
+        buttonColor: '#3c3e49'
+        },
+      content: [
+        {
+          iconPath: '/static/male.png',
+          text: '男生',
+          value: '1'
+        }, {
+          iconPath: '/static/female.png',
+          text: '女生',
+          value: '0'
+      }],
+      sex: ''
     }
   },
   onLoad() {
@@ -57,6 +81,8 @@ export default {
   onReachBottom() {
     if (this.isRecommend) {
       this.getRecommendList()
+    } else if (this.isShopping) {
+      this.getShoppingList()
     }
   },
   methods: {
@@ -72,6 +98,10 @@ export default {
       this.page = 0
       this.getRecommendList('refresh')
     },
+    onShoppingRefresh() {
+      this.page1 = 0
+      this.getShoppingList('refresh')
+    },
     getRecommendList(type) {
       const self = this
       self.$api.home.getRecommendList(this.page++).then(res => {
@@ -85,14 +115,39 @@ export default {
         }
       })
     },
-    getShoppingList() {
+    getShoppingList(type) {
       const self = this
-      self.$api.home.getShoppingList(this.page1++).then(res => {
+      self.$api.home.getShoppingList(this.page1++, this.sex).then(res => {
         if (res.responseCode === 200) {
           const list = res.data.content || []
-          this.recommenList1 = list
+          if (type === 'refresh') {
+            this.shoppingList = list
+          } else {
+            this.shoppingList = this.shoppingList.concat(list)
+          }
         }
       })
+    },
+    // 点击shopping的性别
+    clickSex(val) {
+      console.log('val', val)
+      this.sex = val.item.value
+      this.onShoppingRefresh()
+      uni.pageScrollTo({
+        duration: 300,
+        scrollTop: 0
+      })
+    },
+    // 点击悬浮按钮事件
+    clearSex() {
+      if(this.sex){
+        this.sex = ''
+        this.onShoppingRefresh()
+        uni.pageScrollTo({
+          duration: 300,
+          scrollTop: 0
+        })
+      }
     }
   }
 }
