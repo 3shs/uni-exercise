@@ -1,33 +1,33 @@
 <template>
   <view class="card-container">
-    <view class="recommend-card-item">
+    <view class="recommend-card-item" v-for="item in data" :key="item.collocationId">
       <view class="recommend-img">
-        <img mode="widthFix" :src="detail.mainImage">
+        <img mode="widthFix" :src="item.mainImage">
         <view class="like-btn">
-          <text class="icon icon-appreciatefill" :class="detail.appreciate ? 'text-red' : 'text-gray'"></text>
+          <text class="icon icon-appreciatefill" :class="item.appreciate ? 'text-red' : 'text-gray'"></text>
         </view>
       </view>
       <view class="solid-info flex justify-between align-center pl-lg pr-lg pt-lg">
         <view>
           <text class="icon icon-attentionfill text-gray font-size-sm">
-            <text class="ml-sm">{{detail.viewCount}}</text>浏览</text>
+            <text class="ml-sm">{{item.viewCount}}</text>浏览</text>
           <text class="icon icon-appreciatefill text-gray font-size-sm pl-lg">
-            <text class="ml-sm">{{detail.appreciateCount}}</text>赞</text>
+            <text class="ml-sm">{{item.appreciateCount}}</text>赞</text>
         </view>
         <view class="text-gray font-size-sm">
-          {{detail.formatCreatedDate}}
+          {{item.formatCreatedDate}}
         </view>
       </view>
       <view class="intro padding-sm">
         <view class="intro-item">
           <view
-            v-for="item in detail.tags"
-            :key="item.tagId"
-            class="tag font-size-sm line-gray radius padding-sm">{{item.name}}</view>
+            v-for="ele in item.tags"
+            :key="ele.tagId"
+            class="tag font-size-sm line-gray radius padding-sm">{{ele.name}}</view>
         </view>
         <view class="info-item pt-lg">
           <text class="text-grey">
-            {{detail.description}}
+            {{item.description}}
           </text>
         </view>
       </view>
@@ -37,6 +37,10 @@
 <script>
 export default {
   props: {
+    data: {
+      type: Array,
+      default: () => []
+    },
     detail: {
       type: Object,
       default: null

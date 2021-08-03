@@ -38,7 +38,7 @@
           </slot>
         </view>
         <slot></slot>
-		    <!-- <uni-load-more :status="pullupLoadingType"></uni-load-more> -->
+		    <uni-load-more :status="pullupLoadingType"></uni-load-more>
       </view>
 	</scroll-view>
 </template>
@@ -52,7 +52,7 @@ export default {
     uniLoadMore,
   },
   props: {
-    pullupLoadingType: {
+    loadingType: {
       type: String,
       default: 'more'
     }

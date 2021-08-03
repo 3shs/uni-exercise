@@ -18,8 +18,11 @@ export default {
 	/*每个页面公共css */
   @import "style/icon.scss";
   @import "style/main.scss";
-  
+  page {
+    height: 100%;
+  }
   .container {
+    height: 100%;
     background: $page-color-base;
   }
 </style>

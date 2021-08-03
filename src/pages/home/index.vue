@@ -11,22 +11,30 @@
       </view>
     </view>
     <view v-if="isRecommend" :style="[{paddingTop: $customBar+'px'}]">
-      <Refresh
-        @onRefresh="onRecommendRefresh">
-        <RecommendList
-          v-for="item in recommenList"
-          :key="item.collocationId"
-          :detail="item"
-        />
-      </Refresh>
+      <mescroll-body
+        ref="recommendMescrollRef" 
+        @init="mescrollInit" 
+        :down="downOption"
+        :up="upOption"
+        @up="recommendUpCallback"
+        @down="recommendDownCallback">
+          <RecommendList
+            :data="recommenList"
+          />
+      </mescroll-body>
     </view>
     <view v-if="isShopping" :style="[{paddingTop: $customBar+'px'}]">
-      <Refresh
-        @onRefresh="onShoppingRefresh">
+      <mescroll-body
+        ref="shopMescrollRef" 
+        @init="mescrollInit" 
+        :down="downOption1"
+        :up="upOption1"
+        @up="shopUpCallback"
+        @down="shopDownCallback">
         <ShoppingList 
           :data="shoppingList"
         />
-      </Refresh>
+      </mescroll-body>
       <uni-fab
         :pattern="pattern"
         horizontal="right"
@@ -40,14 +48,16 @@
 <script>
 import RecommendList from './components/RecommendList'
 import ShoppingList from './components/ShoppingList'
-import Refresh from '@/components/refresh'
+import MescrollBody from "./../../components/mescroll-diy/xinlang/mescroll-body.vue"
+import MescrollMixin from '../../components/mescroll-uni/mescroll-mixins'
 import { uniFab } from '@dcloudio/uni-ui'
 export default {
+  mixins: [MescrollMixin],
   components: {
     RecommendList,
-    Refresh,
     ShoppingList,
-    uniFab
+    uniFab,
+    MescrollBody
   },
   data() {
     return {
@@ -60,7 +70,7 @@ export default {
       shoppingList: [],
       pattern: {
         buttonColor: '#3c3e49'
-        },
+      },
       content: [
         {
           iconPath: '/static/male.png',
@@ -71,21 +81,40 @@ export default {
           text: '女生',
           value: '0'
       }],
-      sex: ''
-    }
-  },
-  onLoad() {
-    this.getRecommendList()
-    this.getShoppingList()
-  },
-  onReachBottom() {
-    if (this.isRecommend) {
-      this.getRecommendList()
-    } else if (this.isShopping) {
-      this.getShoppingList()
+      sex: '',
+      downOption: {
+        auto: false,
+      },
+      upOption: {
+        toTop: {
+          src: '' // 不显示回到顶部按钮
+        }
+      },
+      downOption1: {
+        auto: false,
+      },
+      upOption1: {
+        toTop: {
+          src: '' // 不显示回到顶部按钮
+        }
+      },
     }
   },
   methods: {
+    recommendUpCallback() {
+      this.getRecommendList()
+    },
+    recommendDownCallback() {
+      this.page = 0
+      this.getRecommendList('refresh')
+    },
+    shopUpCallback() {
+      this.getShoppingList()
+    },
+    shopDownCallback() {
+      this.page1 = 0
+      this.getShoppingList('refresh')
+    },
     showRecommend() {
       this.isRecommend = true
       this.isShopping = false
@@ -94,21 +123,14 @@ export default {
       this.isRecommend = false
       this.isShopping = true
     },
-    onRecommendRefresh() {
-      this.page = 0
-      this.getRecommendList('refresh')
-    },
-    onShoppingRefresh() {
-      this.page1 = 0
-      this.getShoppingList('refresh')
-    },
     getRecommendList(type) {
       const self = this
       self.$api.home.getRecommendList(this.page++).then(res => {
         if (res.responseCode === 200) {
           const list = res.data.content || []
+          this.mescroll.endSuccess(list.length)
           if (type === 'refresh') {
-            this.recommenList = list
+            self.recommenList = list
           } else {
             this.recommenList = this.recommenList.concat(list)
           }
@@ -120,6 +142,7 @@ export default {
       self.$api.home.getShoppingList(this.page1++, this.sex).then(res => {
         if (res.responseCode === 200) {
           const list = res.data.content || []
+          self.mescroll.endSuccess(list.length)
           if (type === 'refresh') {
             this.shoppingList = list
           } else {
@@ -132,7 +155,7 @@ export default {
     clickSex(val) {
       console.log('val', val)
       this.sex = val.item.value
-      this.onShoppingRefresh()
+      this.shopDownCallback()
       uni.pageScrollTo({
         duration: 300,
         scrollTop: 0
@@ -142,7 +165,7 @@ export default {
     clearSex() {
       if(this.sex){
         this.sex = ''
-        this.onShoppingRefresh()
+        this.shopDownCallback()
         uni.pageScrollTo({
           duration: 300,
           scrollTop: 0
